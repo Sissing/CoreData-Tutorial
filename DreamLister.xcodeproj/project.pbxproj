@@ -22,6 +22,7 @@
 		45652E5D1EAA248D00AC00BE /* ItemType+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45652E551EAA248D00AC00BE /* ItemType+CoreDataClass.swift */; };
 		45652E5E1EAA248D00AC00BE /* ItemType+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45652E561EAA248D00AC00BE /* ItemType+CoreDataProperties.swift */; };
 		45652E631EAA2B1E00AC00BE /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45652E621EAA2B1E00AC00BE /* MaterialView.swift */; };
+		45652E651EAA374B00AC00BE /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45652E641EAA374B00AC00BE /* ItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		45652E551EAA248D00AC00BE /* ItemType+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ItemType+CoreDataClass.swift"; sourceTree = "<group>"; };
 		45652E561EAA248D00AC00BE /* ItemType+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ItemType+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		45652E621EAA2B1E00AC00BE /* MaterialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialView.swift; sourceTree = "<group>"; };
+		45652E641EAA374B00AC00BE /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				45652E621EAA2B1E00AC00BE /* MaterialView.swift */,
+				45652E641EAA374B00AC00BE /* ItemCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45652E651EAA374B00AC00BE /* ItemCell.swift in Sources */,
 				45652E5C1EAA248D00AC00BE /* Image+CoreDataProperties.swift in Sources */,
 				45652E1B1EAA12C300AC00BE /* MainVC.swift in Sources */,
 				45652E5D1EAA248D00AC00BE /* ItemType+CoreDataClass.swift in Sources */,
