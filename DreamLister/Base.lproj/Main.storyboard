@@ -50,6 +50,7 @@
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tesla" translatesAutoresizingMaskIntoConstraints="NO" id="skr-Kp-UVT">
                                                             <rect key="frame" x="8" y="17" width="100" height="100"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="100" id="K3f-V1-ZTd"/>
                                                                 <constraint firstAttribute="width" constant="100" id="tKj-Ly-qOx"/>
@@ -176,7 +177,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w6N-OX-Bpd" customClass="CustomTextField" customModule="DreamLister" customModuleProvider="target">
                                 <rect key="frame" x="124" y="128" width="235" height="40"/>
@@ -186,7 +187,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="next"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Details" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6BF-Xe-xoO" customClass="CustomTextField" customModule="DreamLister" customModuleProvider="target">
                                 <rect key="frame" x="16" y="176" width="343" height="60"/>
@@ -196,7 +197,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBK-wh-06Z">
                                 <rect key="frame" x="16" y="345" width="343" height="30"/>
@@ -216,6 +217,9 @@
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                 <color key="tintColor" red="0.94529226040000003" green="0.94529226040000003" blue="0.94529226040000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Save Item"/>
+                                <connections>
+                                    <action selector="savePressed:" destination="ZK3-Fh-yUC" eventType="touchUpInside" id="8D4-DV-QfF"/>
+                                </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iVv-qH-ViY">
                                 <rect key="frame" x="0.0" y="383" width="375" height="216"/>
@@ -252,6 +256,12 @@
                             <color key="tintColor" red="1" green="0.2495912445" blue="0.25118434950000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="detailsField" destination="6BF-Xe-xoO" id="Uez-wM-pkE"/>
+                        <outlet property="priceField" destination="w6N-OX-Bpd" id="Hbg-xw-fYB"/>
+                        <outlet property="storePicker" destination="iVv-qH-ViY" id="qhk-vd-sYJ"/>
+                        <outlet property="titleField" destination="I6w-Ah-uhp" id="Z6Q-qB-FNS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7uo-AE-rtN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
