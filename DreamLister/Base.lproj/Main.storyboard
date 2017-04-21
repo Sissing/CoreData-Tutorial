@@ -38,7 +38,7 @@
                                 <rect key="frame" x="0.0" y="132" width="375" height="535"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="150" id="Ll3-lZ-Ttv" customClass="ItemCell" customModule="DreamLister" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" rowHeight="150" id="Ll3-lZ-Ttv" customClass="ItemCell" customModule="DreamLister" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ll3-lZ-Ttv" id="Ygj-9r-TSD">
@@ -80,7 +80,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="dm2-EL-U7F" secondAttribute="trailing" constant="8" id="CBy-Dy-5d3"/>
                                                         <constraint firstItem="skr-Kp-UVT" firstAttribute="centerY" secondItem="Kva-EB-psj" secondAttribute="centerY" id="CRY-wo-6Ko"/>
@@ -95,9 +95,6 @@
                                                         <constraint firstItem="tbU-h2-VKg" firstAttribute="top" secondItem="Kva-EB-psj" secondAttribute="top" constant="8" id="s0C-ay-pNn"/>
                                                         <constraint firstItem="Xmd-kV-cwA" firstAttribute="leading" secondItem="skr-Kp-UVT" secondAttribute="trailing" constant="8" id="ywI-MW-Mvx"/>
                                                     </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="materialDesign" value="YES"/>
-                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                             <constraints>
