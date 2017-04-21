@@ -95,6 +95,9 @@
                                                         <constraint firstItem="tbU-h2-VKg" firstAttribute="top" secondItem="Kva-EB-psj" secondAttribute="top" constant="8" id="s0C-ay-pNn"/>
                                                         <constraint firstItem="Xmd-kV-cwA" firstAttribute="leading" secondItem="skr-Kp-UVT" secondAttribute="trailing" constant="8" id="ywI-MW-Mvx"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="materialDesign" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                             <constraints>
