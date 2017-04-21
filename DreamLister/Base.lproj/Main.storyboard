@@ -48,7 +48,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kva-EB-psj">
                                                     <rect key="frame" x="8" y="8" width="359" height="134"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tesla" translatesAutoresizingMaskIntoConstraints="NO" id="skr-Kp-UVT">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imagePick" translatesAutoresizingMaskIntoConstraints="NO" id="skr-Kp-UVT">
                                                             <rect key="frame" x="8" y="17" width="100" height="100"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -129,14 +129,14 @@
                     <navigationItem key="navigationItem" title="DreamLister" id="jx1-2v-h4o">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="akv-QU-a0P">
                             <connections>
-                                <segue destination="ZK3-Fh-yUC" kind="show" identifier="ItemsDetailsVCNew" id="f8f-8Y-GxR"/>
+                                <segue destination="ZK3-Fh-yUC" kind="show" identifier="ItemDetailsVCNew" id="f8f-8Y-GxR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="segment" destination="S7z-Lf-LsB" id="dGJ-11-3qM"/>
                         <outlet property="tableView" destination="FGN-v9-5Y9" id="SYq-ur-3eP"/>
-                        <segue destination="ZK3-Fh-yUC" kind="show" identifier="ItemsDetailsVC" id="pp9-5m-Art"/>
+                        <segue destination="ZK3-Fh-yUC" kind="show" identifier="ItemDetailsVC" id="pp9-5m-Art"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -293,7 +293,6 @@
     </scenes>
     <resources>
         <image name="imagePick" width="300" height="300"/>
-        <image name="tesla" width="800" height="489"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="pp9-5m-Art"/>
