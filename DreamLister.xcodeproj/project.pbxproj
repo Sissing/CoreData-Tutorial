@@ -13,6 +13,14 @@
 		45652E211EAA12C300AC00BE /* DreamLister.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 45652E1F1EAA12C300AC00BE /* DreamLister.xcdatamodeld */; };
 		45652E231EAA12C300AC00BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45652E221EAA12C300AC00BE /* Assets.xcassets */; };
 		45652E261EAA12C300AC00BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45652E241EAA12C300AC00BE /* LaunchScreen.storyboard */; };
+		45652E571EAA248D00AC00BE /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45652E4F1EAA248D00AC00BE /* Item+CoreDataClass.swift */; };
+		45652E581EAA248D00AC00BE /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45652E501EAA248D00AC00BE /* Item+CoreDataProperties.swift */; };
+		45652E591EAA248D00AC00BE /* Store+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45652E511EAA248D00AC00BE /* Store+CoreDataClass.swift */; };
+		45652E5A1EAA248D00AC00BE /* Store+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45652E521EAA248D00AC00BE /* Store+CoreDataProperties.swift */; };
+		45652E5B1EAA248D00AC00BE /* Image+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45652E531EAA248D00AC00BE /* Image+CoreDataClass.swift */; };
+		45652E5C1EAA248D00AC00BE /* Image+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45652E541EAA248D00AC00BE /* Image+CoreDataProperties.swift */; };
+		45652E5D1EAA248D00AC00BE /* ItemType+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45652E551EAA248D00AC00BE /* ItemType+CoreDataClass.swift */; };
+		45652E5E1EAA248D00AC00BE /* ItemType+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45652E561EAA248D00AC00BE /* ItemType+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +32,14 @@
 		45652E221EAA12C300AC00BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45652E251EAA12C300AC00BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		45652E271EAA12C300AC00BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45652E4F1EAA248D00AC00BE /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
+		45652E501EAA248D00AC00BE /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		45652E511EAA248D00AC00BE /* Store+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Store+CoreDataClass.swift"; sourceTree = "<group>"; };
+		45652E521EAA248D00AC00BE /* Store+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Store+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		45652E531EAA248D00AC00BE /* Image+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+CoreDataClass.swift"; sourceTree = "<group>"; };
+		45652E541EAA248D00AC00BE /* Image+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		45652E551EAA248D00AC00BE /* ItemType+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ItemType+CoreDataClass.swift"; sourceTree = "<group>"; };
+		45652E561EAA248D00AC00BE /* ItemType+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ItemType+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +72,7 @@
 		45652E171EAA12C300AC00BE /* DreamLister */ = {
 			isa = PBXGroup;
 			children = (
+				45652E5F1EAA249B00AC00BE /* Model */,
 				45652E181EAA12C300AC00BE /* AppDelegate.swift */,
 				45652E1A1EAA12C300AC00BE /* ViewController.swift */,
 				45652E1C1EAA12C300AC00BE /* Main.storyboard */,
@@ -65,6 +82,29 @@
 				45652E1F1EAA12C300AC00BE /* DreamLister.xcdatamodeld */,
 			);
 			path = DreamLister;
+			sourceTree = "<group>";
+		};
+		45652E5F1EAA249B00AC00BE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				45652E4F1EAA248D00AC00BE /* Item+CoreDataClass.swift */,
+				45652E511EAA248D00AC00BE /* Store+CoreDataClass.swift */,
+				45652E531EAA248D00AC00BE /* Image+CoreDataClass.swift */,
+				45652E551EAA248D00AC00BE /* ItemType+CoreDataClass.swift */,
+				45652E601EAA24A900AC00BE /* Generated */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		45652E601EAA24A900AC00BE /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				45652E501EAA248D00AC00BE /* Item+CoreDataProperties.swift */,
+				45652E521EAA248D00AC00BE /* Store+CoreDataProperties.swift */,
+				45652E541EAA248D00AC00BE /* Image+CoreDataProperties.swift */,
+				45652E561EAA248D00AC00BE /* ItemType+CoreDataProperties.swift */,
+			);
+			name = Generated;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,8 +181,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				45652E1B1EAA12C300AC00BE /* ViewController.swift in Sources */,
+				45652E5C1EAA248D00AC00BE /* Image+CoreDataProperties.swift in Sources */,
+				45652E1B1EAA12C300AC00BE /* MainVC.swift in Sources */,
+				45652E5D1EAA248D00AC00BE /* ItemType+CoreDataClass.swift in Sources */,
+				45652E591EAA248D00AC00BE /* Store+CoreDataClass.swift in Sources */,
 				45652E191EAA12C300AC00BE /* AppDelegate.swift in Sources */,
+				45652E5B1EAA248D00AC00BE /* Image+CoreDataClass.swift in Sources */,
+				45652E571EAA248D00AC00BE /* Item+CoreDataClass.swift in Sources */,
+				45652E5E1EAA248D00AC00BE /* ItemType+CoreDataProperties.swift in Sources */,
+				45652E5A1EAA248D00AC00BE /* Store+CoreDataProperties.swift in Sources */,
 				45652E211EAA12C300AC00BE /* DreamLister.xcdatamodeld in Sources */,
+				45652E581EAA248D00AC00BE /* Item+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
