@@ -11,16 +11,16 @@ import CoreData
 
 class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    @IBOutlet var storePicker: UIPickerView!
-    @IBOutlet var titleField: CustomTextField!
-    @IBOutlet var priceField: CustomTextField!
-    @IBOutlet var detailsField: CustomTextField!
-    @IBOutlet var deleteButton: UIBarButtonItem!
-    @IBOutlet var thumbImg: UIImageView!
+    @IBOutlet private var storePicker: UIPickerView!
+    @IBOutlet private var titleField: CustomTextField!
+    @IBOutlet private var priceField: CustomTextField!
+    @IBOutlet private var detailsField: CustomTextField!
+    @IBOutlet private var deleteButton: UIBarButtonItem!
+    @IBOutlet private var thumbImg: UIImageView!
     
-    var stores = [Store]()
+    private var stores = [Store]()
     var itemToEdit: Item?
-    var imagePicker: UIImagePickerController!
+    private var imagePicker: UIImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,46 +30,31 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             topItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
         }
         
-        storePicker.delegate = self
-        storePicker.dataSource = self
+        self.storePicker.delegate = self
+        self.storePicker.dataSource = self
         
-        imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
+        self.imagePicker = UIImagePickerController()
+        self.imagePicker.delegate = self
         
-        UITextField.connectFields(fields: [titleField, priceField, detailsField])
+        UITextField.connectFields(fields: [self.titleField, self.priceField, self.detailsField])
         
-//        let store = Store(context: context)
-//        store.name = "Best Buy"
-//        let store2 = Store(context: context)
-//        store2.name = "Tesla Dealership"
-//        let store3 = Store(context: context)
-//        store3.name = "Argos"
-//        let store4 = Store(context: context)
-//        store4.name = "Amazon"
-//        let store5 = Store(context: context)
-//        store5.name = "Coolblue"
-//        let store6 = Store(context: context)
-//        store6.name = "Media Markt"
-//        
-//        ad.saveContext()
-        
-        getStores()
+        self.getStores()
         
         if itemToEdit != nil {
-            loadItemData()
-            deleteButton.isEnabled = true
+            self.loadItemData()
+            self.deleteButton.isEnabled = true
         } else {
-            deleteButton.isEnabled = false
+            self.deleteButton.isEnabled = false
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let store = stores[row]
+        let store = self.stores[row]
         return store.name
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return stores.count
+        return self.stores.count
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -92,32 +77,32 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     }
     
     func loadItemData() {
-        if let item = itemToEdit {
-            titleField.text = item.title
-            priceField.text = "\(item.price)"
-            detailsField.text = item.details
-            thumbImg.image = item.toImage?.image as? UIImage
+        if let item = self.itemToEdit {
+            self.titleField.text = item.title
+            self.priceField.text = "\(item.price)"
+            self.detailsField.text = item.details
+            self.thumbImg.image = item.toImage?.image as? UIImage
             
             if let store = item.toStore {
                 var index = 0
                 repeat {
-                    let s = stores[index]
+                    let s = self.stores[index]
                     if s.name == store.name {
-                        storePicker.selectRow(index, inComponent: 0, animated: false)
+                        self.storePicker.selectRow(index, inComponent: 0, animated: false)
                         break
                     }
                     index += 1
-                } while (index < stores.count)
+                } while (index < self.stores.count)
             }
         }
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        titleField.resignFirstResponder()
-        if titleField == priceField { // Switch focus to other text field
-            priceField.becomeFirstResponder()
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let img = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.thumbImg.image = img
         }
-        return true
+        
+        self.imagePicker.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func savePressed(_ sender: UIButton) {
@@ -125,27 +110,27 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         let picture = Image(context: context)
         picture.image = thumbImg.image
         
-        if itemToEdit == nil {
+        if self.itemToEdit == nil {
             item = Item(context: context)
         } else {
-            item = itemToEdit
+            item = self.itemToEdit
         }
         
         item.toImage = picture
         
-        if let title = titleField.text {
+        if let title = self.titleField.text {
             item.title = title
         }
         
-        if let price = priceField.text {
+        if let price = self.priceField.text {
             item.price = (price as NSString).doubleValue
         }
         
-        if let details = detailsField.text {
+        if let details = self.detailsField.text {
             item.details = details
         }
         
-        item.toStore = stores[storePicker.selectedRow(inComponent: 0)]
+        item.toStore = self.stores[storePicker.selectedRow(inComponent: 0)]
         
         ad.saveContext()
         
@@ -163,39 +148,5 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     @IBAction func addImage(_ sender: UIButton) {
         present(imagePicker, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let img = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            thumbImg.image = img
-        }
-        
-        imagePicker.dismiss(animated: true, completion: nil)
-    }
-}
-
-extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    func dismissKeyboard() {
-        view.endEditing(true)
-    }
-}
-
-extension UITextField {
-    class func connectFields(fields:[UITextField]) -> Void {
-        guard let last = fields.last else {
-            return
-        }
-        for i in 0 ..< fields.count - 1 {
-            fields[i].returnKeyType = .next
-            fields[i].addTarget(fields[i+1], action: #selector(UIResponder.becomeFirstResponder), for: .editingDidEndOnExit)
-        }
-        last.returnKeyType = .go
-        last.addTarget(last, action: #selector(UIResponder.resignFirstResponder), for: .editingDidEndOnExit)
     }
 }

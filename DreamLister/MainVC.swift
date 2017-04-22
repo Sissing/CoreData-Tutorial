@@ -11,18 +11,18 @@ import CoreData
 
 class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
     
-    @IBOutlet var tableView: UITableView!
-    @IBOutlet var segment: UISegmentedControl!
+    @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var segment: UISegmentedControl!
     
-    var controller: NSFetchedResultsController<Item>!
+    private var controller: NSFetchedResultsController<Item>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         
-//        generateTestData()
+        //generateTestData()
         attemptFetch()
     }
     
@@ -35,12 +35,12 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
     }
     
     func configureCell(cell: ItemCell, indexPath: NSIndexPath) {
-        let item = controller.object(at: indexPath as IndexPath)
+        let item = self.controller.object(at: indexPath as IndexPath)
         cell.configureCell(item: item)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let objs = controller.fetchedObjects, objs.count > 0 {
+        if let objs = self.controller.fetchedObjects, objs.count > 0 {
             let item = objs[indexPath.row]
             performSegue(withIdentifier: "ItemDetailsVC", sender: item)
         }
@@ -57,7 +57,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let sections = controller.sections {
+        if let sections = self.controller.sections {
             let sectionInfo = sections[section]
             return sectionInfo.numberOfObjects
         }
@@ -66,7 +66,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if let sections = controller.sections {
+        if let sections = self.controller.sections {
             return sections.count
         }
         
@@ -80,8 +80,17 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
     func attemptFetch() {
         let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
         let dateSort = NSSortDescriptor(key: "created", ascending: false)
-        fetchRequest.sortDescriptors = [dateSort]
+        let priceSort = NSSortDescriptor(key: "price", ascending: true)
+        let titleSort = NSSortDescriptor(key: "title", ascending: true)
         
+        if segment.selectedSegmentIndex == 0 {
+            fetchRequest.sortDescriptors = [dateSort]
+        } else if segment.selectedSegmentIndex == 1 {
+            fetchRequest.sortDescriptors = [priceSort]
+        } else if segment.selectedSegmentIndex == 2 {
+            fetchRequest.sortDescriptors = [titleSort]
+        }
+                
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         
         controller.delegate = self
@@ -96,42 +105,43 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
     }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.beginUpdates()
+        self.tableView.beginUpdates()
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.endUpdates()
+        self.tableView.endUpdates()
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch(type) {
         case.insert:
             if let indexPath = newIndexPath {
-                tableView.insertRows(at: [indexPath], with: .fade)
+                self.tableView.insertRows(at: [indexPath], with: .fade)
             }
             break
         case.delete:
             if let indexPath = indexPath {
-                tableView.deleteRows(at: [indexPath], with: .fade)
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
             }
             break
         case.update:
             if let indexPath = indexPath {
-                let cell = tableView.cellForRow(at: indexPath) as! ItemCell
-                configureCell(cell: cell, indexPath: indexPath as IndexPath as NSIndexPath)
+                let cell = self.tableView.cellForRow(at: indexPath) as! ItemCell
+                self.configureCell(cell: cell, indexPath: indexPath as IndexPath as NSIndexPath)
             }
         case.move:
             if let indexPath = indexPath {
-                tableView.deleteRows(at: [indexPath], with: .fade)
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
             }
             if let indexPath = newIndexPath {
-                tableView.insertRows(at: [indexPath], with: .fade)
+                self.tableView.insertRows(at: [indexPath], with: .fade)
             }
             break
         }
     }
     
     func generateTestData() {
+        // Items
         let item = Item(context: context)
         item.title = "iPhone 8"
         item.price = 999
@@ -147,8 +157,26 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         item3.price = 110000
         item3.details = "This date will come in the near future."
         
+        // Stores
+        let store = Store(context: context)
+        store.name = "Best Buy"
+        let store2 = Store(context: context)
+        store2.name = "Tesla Dealership"
+        let store3 = Store(context: context)
+        store3.name = "Argos"
+        let store4 = Store(context: context)
+        store4.name = "Amazon"
+        let store5 = Store(context: context)
+        store5.name = "Coolblue"
+        let store6 = Store(context: context)
+        store6.name = "Media Markt"
+        
         ad.saveContext()
     }
     
+    @IBAction func segmentChange(_ sender: UISegmentedControl) {
+        self.attemptFetch()
+        self.tableView.reloadData()
+    }
+    
 }
-
