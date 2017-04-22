@@ -24,6 +24,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         
         if let topItem = self.navigationController?.navigationBar.topItem {
             topItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
@@ -34,6 +35,8 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
+        
+        UITextField.connectFields(fields: [titleField, priceField, detailsField])
         
 //        let store = Store(context: context)
 //        store.name = "Best Buy"
@@ -91,7 +94,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     func loadItemData() {
         if let item = itemToEdit {
             titleField.text = item.title
-            priceField.text = "$\(item.price)"
+            priceField.text = "\(item.price)"
             detailsField.text = item.details
             thumbImg.image = item.toImage?.image as? UIImage
             
@@ -109,8 +112,11 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         }
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        titleField.resignFirstResponder()
+        if titleField == priceField { // Switch focus to other text field
+            priceField.becomeFirstResponder()
+        }
         return true
     }
     
@@ -165,5 +171,31 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         }
         
         imagePicker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
+extension UITextField {
+    class func connectFields(fields:[UITextField]) -> Void {
+        guard let last = fields.last else {
+            return
+        }
+        for i in 0 ..< fields.count - 1 {
+            fields[i].returnKeyType = .next
+            fields[i].addTarget(fields[i+1], action: #selector(UIResponder.becomeFirstResponder), for: .editingDidEndOnExit)
+        }
+        last.returnKeyType = .go
+        last.addTarget(last, action: #selector(UIResponder.resignFirstResponder), for: .editingDidEndOnExit)
     }
 }
