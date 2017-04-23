@@ -22,7 +22,20 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        //generateTestData()
+        var typeIsEmpty: Bool {
+            do {
+                let request: NSFetchRequest<ItemType> = ItemType.fetchRequest()
+                let count  = try context.count(for: request)
+                return count == 0 ? true : false
+            } catch {
+                return true
+            }
+        }
+        
+        if typeIsEmpty {
+            generateTestData()
+        }
+        
         attemptFetch()
     }
     
@@ -82,6 +95,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         let dateSort = NSSortDescriptor(key: "created", ascending: false)
         let priceSort = NSSortDescriptor(key: "price", ascending: true)
         let titleSort = NSSortDescriptor(key: "title", ascending: true)
+        let typeSort = NSSortDescriptor(key: "toItemType", ascending: true)
         
         if segment.selectedSegmentIndex == 0 {
             fetchRequest.sortDescriptors = [dateSort]
@@ -89,8 +103,10 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
             fetchRequest.sortDescriptors = [priceSort]
         } else if segment.selectedSegmentIndex == 2 {
             fetchRequest.sortDescriptors = [titleSort]
+        } else if segment.selectedSegmentIndex == 3 {
+            fetchRequest.sortDescriptors = [typeSort]
         }
-                
+        
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         
         controller.delegate = self
@@ -146,12 +162,10 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         item.title = "iPhone 8"
         item.price = 999
         item.details = "I can't wait until the July event, when they will update the iPhone."
-        
         let item2 = Item(context: context)
         item2.title = "Bose Headphones"
         item2.price = 379
         item2.details = "I can't wait to use my new Headphone."
-        
         let item3 = Item(context: context)
         item3.title = "Tesla Model S"
         item3.price = 110000
@@ -170,6 +184,16 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         store5.name = "Coolblue"
         let store6 = Store(context: context)
         store6.name = "Media Markt"
+        
+        // Types
+        let type = ItemType(context: context)
+        type.type = "Car"
+        let type2 = ItemType(context: context)
+        type2.type = "Electronic"
+        let type3 = ItemType(context: context)
+        type3.type = "Home"
+        let type4 = ItemType(context: context)
+        type4.type = "Toys"
         
         ad.saveContext()
     }

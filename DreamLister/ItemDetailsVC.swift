@@ -20,6 +20,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     private var stores = [Store]()
     var itemToEdit: Item?
+    private var itemTypes = [ItemType]()
     private var imagePicker: UIImagePickerController!
     
     override func viewDidLoad() {
@@ -39,6 +40,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         UITextField.connectFields(fields: [self.titleField, self.priceField, self.detailsField])
         
         self.getStores()
+        self.getTypes()
         
         if itemToEdit != nil {
             self.loadItemData()
@@ -49,16 +51,31 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let store = self.stores[row]
-        return store.name
+        if component == 0 {
+            let store = self.stores[row]
+            return store.name
+        } else if component == 1 {
+            let itemType = self.itemTypes[row]
+            return itemType.type
+        } else {
+            print("ERROR PickerView: Name issue")
+            return "None"
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.stores.count
+        if component == 0 {
+            return self.stores.count
+        } else if component == 1 {
+            return self.itemTypes.count
+        } else {
+            print("ERROR PickerView: Too much components")
+            return 0
+        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        return 2
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -76,6 +93,17 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         }
     }
     
+    func getTypes() {
+        let fetchRequest: NSFetchRequest<ItemType> = ItemType.fetchRequest()
+        
+        do {
+            self.itemTypes = try context.fetch(fetchRequest)
+            self.storePicker.reloadAllComponents()
+        } catch {
+            
+        }
+    }
+    
     func loadItemData() {
         if let item = self.itemToEdit {
             self.titleField.text = item.title
@@ -84,15 +112,27 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             self.thumbImg.image = item.toImage?.image as? UIImage
             
             if let store = item.toStore {
-                var index = 0
+                var indexStore = 0
                 repeat {
-                    let s = self.stores[index]
+                    let s = self.stores[indexStore]
                     if s.name == store.name {
-                        self.storePicker.selectRow(index, inComponent: 0, animated: false)
+                        self.storePicker.selectRow(indexStore, inComponent: 0, animated: false)
                         break
                     }
-                    index += 1
-                } while (index < self.stores.count)
+                    indexStore += 1
+                } while (indexStore < self.stores.count)
+            }
+            
+            if let itemType = item.toItemType {
+                var indexType = 0
+                repeat {
+                    let t = self.itemTypes[indexType]
+                    if t.type == itemType.type {
+                        self.storePicker.selectRow(indexType, inComponent: 1, animated: false)
+                        break
+                    }
+                    indexType += 1
+                } while (indexType < self.itemTypes.count)
             }
         }
     }
@@ -131,6 +171,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         }
         
         item.toStore = self.stores[storePicker.selectedRow(inComponent: 0)]
+        item.toItemType = self.itemTypes[storePicker.selectedRow(inComponent: 1)]
         
         ad.saveContext()
         
